@@ -3,12 +3,17 @@ from pathlib import Path
 from tkinter import messagebox
 from PIL import Image, ImageTk
 import random
+import pygame
 
 class DiceGame:
     def __init__(self, root):
         self.root = root
         self.root.title("Dice Game")
         self.root.geometry("430x400")  # Set the window size
+
+        # Initialize pygame mixer
+        pygame.mixer.init()
+        self.dice_roll_sound = pygame.mixer.Sound("dice-roll.mp3")
 
         # Resize dice images to 150x150 pixels
         self.dice_images = [ImageTk.PhotoImage(Image.open(f'dice_png/{i}.png').resize((150, 150))) for i in range(1, 7)]
@@ -34,6 +39,9 @@ class DiceGame:
         root.bind('<space>', lambda event: self.roll_dice())
 
     def roll_dice(self):
+        # Play dice roll sound
+        self.dice_roll_sound.play()
+
         dice1 = random.randint(1, 6)
         dice2 = random.randint(1, 6)
 
