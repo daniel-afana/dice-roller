@@ -49,6 +49,8 @@ class DiceGame:
         self.dice2_label.config(image=self.dice_images[dice2 - 1])
 
         total = dice1 + dice2
+        if dice1 == dice2:
+            total *= 2
         self.player_scores[self.current_player] += total
 
         self.update_score()
